@@ -19,9 +19,9 @@ export default function Statistics() {
             desc: "Average American waste 43 to 63 hours stuck in traffic. Aprox 13 Billion dollars are generated from speeding tickets a year [1] [2] [3]."
         },
         // {
-        //     title: "Macroeconomic Lost Time Matrix",
+        //     title: "asd",
         //     src: stats2Img,
-        //     desc: "Economic research models indicate that arbitrary, non-variable highway speed caps create systemic traffic compounding. Artificially low caps multiply deceleration waves, directly contributing to thousands of gridlock hours lost annually per commuter [2]."
+        //     desc: "asd"
         // }
     ];
 
@@ -38,10 +38,6 @@ export default function Statistics() {
             id: 3,
             text: "https://www.energy.gov/energysaver/driving-more-efficientlys"
         }
-        // {
-        //     id: 2,
-        //     text: "Global Infrastructure Policy Foundation. 'The Cost of Braking: Macroeconomic Labor Hour Attrition Due to Static Highway Flow Caps,' Academic Review (2024)."
-        // }
     ];
 
     return (
