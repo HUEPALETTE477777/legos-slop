@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import stats1Img from '../assets/stats_1.png';
 
 interface StatSection {
@@ -12,6 +13,8 @@ interface Citation {
 }
 
 export default function Statistics() {
+    const [loadedImages, setLoadedImages] = useState<Record<number, boolean>>({});
+
     const statSections: StatSection[] = [
         {
             title: "Traffic Congestion",
@@ -40,6 +43,13 @@ export default function Statistics() {
         }
     ];
 
+    const handleImageLoad = (index: number) => {
+        setLoadedImages((prev) => ({
+            ...prev,
+            [index]: true
+        }));
+    };
+
     return (
         <div className="w-full max-w-5xl mx-auto py-4 animate-fade-in">
             <h2 className="text-3xl md:text-5xl font-black tracking-tight mt-4 mb-2 uppercase">
@@ -51,28 +61,42 @@ export default function Statistics() {
 
             {/* REPORT GRID */}
             <div className="flex flex-col gap-12 mb-16">
-                {statSections.map((section, index) => (
-                    <div key={index} className="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 lg:p-8 grid md:grid-cols-2 gap-8 items-center">
+                {statSections.map((section, index) => {
+                    const isImageLoaded = loadedImages[index] || false;
 
-                        {/* IMAGE CANVAS */}
-                        <div className="bg-white rounded-xl p-6 flex items-center justify-center h-72 overflow-hidden shadow-inner order-last md:order-none">
-                            <img
-                                src={section.src}
-                                className="max-h-full max-w-full object-contain mix-blend-multiply"
-                            />
-                        </div>
+                    return (
+                        <div key={index} className="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 lg:p-8 grid md:grid-cols-2 gap-8 items-center">
+                            {/* IMAGE CANVAS */}
+                            <div className="relative bg-white rounded-xl p-6 flex items-center justify-center h-72 overflow-hidden shadow-inner order-last md:order-none">
 
-                        {/* ANALYSIS */}
-                        <div>
-                            <h3 className="text-xl md:text-2xl font-black uppercase text-zinc-100 tracking-tight mb-4">
-                                {section.title}
-                            </h3>
-                            <p className="text-zinc-400 leading-relaxed font-medium">
-                                {section.desc}
-                            </p>
+                                {/* LOADING PLACEHOLDER */}
+                                {!isImageLoaded && (
+                                    <div className="absolute inset-0 bg-zinc-200 animate-pulse flex items-center justify-center">
+                                        <div className="w-10 h-10 border-4 border-zinc-400 border-t-zinc-800 rounded-full animate-spin" />
+                                    </div>
+                                )}
+
+                                {/* THE ACTUAL ASSET */}
+                                <img
+                                    src={section.src}
+                                    onLoad={() => handleImageLoad(index)}
+                                    className={`max-h-full max-w-full object-contain mix-blend-multiply transition-opacity duration-500 ${isImageLoaded ? "opacity-100" : "opacity-0"
+                                        }`}
+                                />
+                            </div>
+
+                            {/* ANALYSIS */}
+                            <div>
+                                <h3 className="text-xl md:text-2xl font-black uppercase text-zinc-100 tracking-tight mb-4">
+                                    {section.title}
+                                </h3>
+                                <p className="text-zinc-400 leading-relaxed font-medium">
+                                    {section.desc}
+                                </p>
+                            </div>
                         </div>
-                    </div>
-                ))}
+                    );
+                })}
             </div>
 
             {/* CITATIONS */}
