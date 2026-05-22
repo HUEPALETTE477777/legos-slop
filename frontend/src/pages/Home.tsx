@@ -42,12 +42,6 @@ export default function Home() {
                 >
                     Read the Facts
                 </Link>
-                <Link
-                    to="/about"
-                    className="bg-zinc-900 hover:bg-zinc-800 text-zinc-200 border border-zinc-800 hover:border-zinc-700 font-black uppercase text-sm tracking-wider px-8 py-4 rounded-lg text-center transition-all"
-                >
-                    About us
-                </Link>
             </div>
 
             {/* STATS PANEL */}
